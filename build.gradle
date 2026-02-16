@@ -30,6 +30,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
     implementation 'org.springframework.boot:spring-boot-starter-mail'
+    implementation 'net.bytebuddy:byte-buddy:1.14.11'
+
     compileOnly 'org.projectlombok:lombok'
     implementation 'com.h2database:h2'
     annotationProcessor 'org.projectlombok:lombok'

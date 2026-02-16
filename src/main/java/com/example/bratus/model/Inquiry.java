@@ -2,9 +2,7 @@ package com.example.bratus.model;
 
 import java.time.LocalDate;
 
-/**
- * Model for guest inquiries (not necessarily confirmed bookings)
- */
+
 public class Inquiry {
     private Long id;
     private LocalDate startDate;
@@ -15,11 +13,9 @@ public class Inquiry {
     private String guestMessage;
     private LocalDate createdAt;
 
-    // Default constructor
     public Inquiry() {
     }
 
-    // Getters and setters
     public Long getId() {
         return id;
     }

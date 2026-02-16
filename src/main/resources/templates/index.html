@@ -22,7 +22,7 @@
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
-    <!-- EmailJS for form handling -->
+    <script src="https://cdn.jsdelivr.net/npm/pinch-zoom-js@2.3.5/dist/pinch-zoom.umd.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script type="text/javascript">
         (function() {
@@ -46,7 +46,8 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item"><a class="nav-link" th:href="@{/}">Home</a></li>
-                <li class="nav-item"><a class="nav-link" th:href="@{/about}">About</a></li>
+                <li class="nav-item"><a class="nav-link" href="#details">About</a></li>
+                <li class="nav-item"><a class="nav-link" href="#reviews">Reviews</a></li>
                 <li class="nav-item"><a class="nav-link" href="#gallery">Gallery</a></li>
                 <li class="nav-item"><a class="nav-link" href="#amenities">Amenities</a></li>
                 <li class="nav-item"><a class="nav-link" href="#booking">Booking</a></li>
@@ -80,8 +81,8 @@
                 <div class="about-content">
                     <div class="row align-items-center">
                         <div class="col-md-6">
-                            <h2 class="mb-4 slide-in-left">Your Perfect Getaway</h2>
-                            <p class="lead mb-4 fade-in delay-1">Our beautifully renovated stone house combines traditional architecture with modern comfort, offering an authentic Dalmatian experience.</p>
+                            <h2 class="mb-4 fade-in">Your Perfect Getaway</h2>
+                            <p class="fade-in delay-1">Our beautifully renovated stone house combines traditional architecture with modern comfort, offering an authentic Dalmatian experience.</p>
                             <p class="fade-in delay-2">Completely renovated in 2021, this charming home preserves its historic character while providing all the contemporary amenities you need for a comfortable and memorable stay. Located in the peaceful village of Bratuš, just 5 km south of Baška Voda, and nestled at the foot of the impressive Biokovo mountain range.</p>
                             <p class="fade-in delay-3">With the pebble beach only steps away, you can enjoy the crystal clear Adriatic waters anytime you wish.</p>
                         </div>
@@ -89,6 +90,132 @@
                             <img src="/images/aerial-view-house.jpg" class="img-fluid rounded shadow slide-in-right" alt="Aerial View of House">
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ======== REVIEWS SECTION ======== -->
+<section class="section reviews-section" id="reviews">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <h2 class="text-center mb-5 fade-in">Guest Reviews</h2>
+
+                <!-- Airbnb Rating Summary -->
+                <div class="reviews-header mb-5 fade-in delay-1">
+                    <div class="row align-items-center">
+                        <div class="col-md-4 text-center text-md-start mb-4 mb-md-0">
+                            <div class="overall-rating">
+                                <div class="rating-score-large">
+                                    <span class="rating-number-large">4.93</span>
+                                    <span class="rating-star-large">★</span>
+                                </div>
+                                <div class="rating-text">
+                                    <strong>Exceptional</strong>
+                                    <p class="text-muted mb-0">Based on 42 reviews</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="rating-categories">
+                                <div class="rating-category">
+                                    <span class="category-name">Cleanliness</span>
+                                    <div class="rating-bar">
+                                        <div class="rating-fill" style="width: 98%;"></div>
+                                    </div>
+                                    <span class="category-score">4.9</span>
+                                </div>
+                                <div class="rating-category">
+                                    <span class="category-name">Communication</span>
+                                    <div class="rating-bar">
+                                        <div class="rating-fill" style="width: 98%;"></div>
+                                    </div>
+                                    <span class="category-score">4.9</span>
+                                </div>
+                                <div class="rating-category">
+                                    <span class="category-name">Check-in</span>
+                                    <div class="rating-bar">
+                                        <div class="rating-fill" style="width: 96%;"></div>
+                                    </div>
+                                    <span class="category-score">4.8</span>
+                                </div>
+                                <div class="rating-category">
+                                    <span class="category-name">Accuracy</span>
+                                    <div class="rating-bar">
+                                        <div class="rating-fill" style="width: 98%;"></div>
+                                    </div>
+                                    <span class="category-score">4.9</span>
+                                </div>
+                                <div class="rating-category">
+                                    <span class="category-name">Location</span>
+                                    <div class="rating-bar">
+                                        <div class="rating-fill" style="width: 100%;"></div>
+                                    </div>
+                                    <span class="category-score">5.0</span>
+                                </div>
+                                <div class="rating-category">
+                                    <span class="category-name">Value</span>
+                                    <div class="rating-bar">
+                                        <div class="rating-fill" style="width: 94%;"></div>
+                                    </div>
+                                    <span class="category-score">4.7</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="reviews-grid mb-4">
+                    <div class="review-card fade-in delay-2">
+                        <div class="review-header">
+                            <div class="reviewer-info">
+                                <div class="reviewer-avatar">J</div>
+                                <div>
+                                    <h5 class="reviewer-name">Jozsef</h5>
+                                    <p class="review-date">June 2025</p>
+                                </div>
+                            </div>
+                            <div class="review-rating">★★★★★</div>
+                        </div>
+                        <p class="review-text">"Everything was good, i had with my family perfect relaxed, chilled  time in rly small and friendly village! Beach, restaurants is just one step! The house was far enough to us! 5/5!"</p>
+                    </div>
+
+                    <div class="review-card fade-in delay-3">
+                        <div class="review-header">
+                            <div class="reviewer-info">
+                                <div class="reviewer-avatar">S</div>
+                                <div>
+                                    <h5 class="reviewer-name">Sebastian</h5>
+                                    <p class="review-date">April 2025</p>
+                                </div>
+                            </div>
+                            <div class="review-rating">★★★★★</div>
+                        </div>
+                        <p class="review-text">"Great accomodation! Martin's Family is heartwarming, kind and made us feel like home. Bratuš is a cozy little village, where you can enjoy the sea and relax. Thanks for everything!"</p>
+                    </div>
+
+                    <div class="review-card fade-in delay-4">
+                        <div class="review-header">
+                            <div class="reviewer-info">
+                                <div class="reviewer-avatar">K</div>
+                                <div>
+                                    <h5 class="reviewer-name">Ksenija</h5>
+                                    <p class="review-date">April 2024</p>
+                                </div>
+                            </div>
+                            <div class="review-rating">★★★★★</div>
+                        </div>
+                        <p class="review-text">"We did have such an amazing stay at this place! The house is literally 20 meters from the sea, the area is nice and beautiful, less crowded compared to Baška Voda and Makarska but both of them are easily reached by walking or 10 min by car. House is clean and comfortable with everything we needed and the yard is just stunning! Perfect place for a couple. For sure, we will be back!"</p>
+                    </div>
+                </div>
+
+                <!-- View All Reviews Button -->
+                <div class="text-center fade-in delay-5">
+                    <a href="https://www.airbnb.com/rooms/51274533" target="_blank" class="btn btn-primary btn-lg">
+                        <i class="fab fa-airbnb me-2"></i> View All 42 Reviews on Airbnb
+                    </a>
                 </div>
             </div>
         </div>
@@ -129,71 +256,46 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+                <div id="carouselExample" class="carousel slide" data-bs-ride="false" data-bs-touch="true">
                     <div class="carousel-inner">
-                        <!-- Main house image - index 0 -->
                         <div class="carousel-item active">
-                            <img src="/images/stonehouse.jpeg" alt="House Exterior">
+                            <div class="pinch-zoom-container"><img src="/images/stonehouse.jpeg" alt="House Exterior"></div>
                         </div>
-
-                        <!-- Aerial View - index 1 -->
                         <div class="carousel-item">
-                            <img src="/images/aerial-view-bratus.jpeg" alt="Aerial View of Bratuš">
+                            <div class="pinch-zoom-container"><img src="/images/aerial-view-bratus.jpeg" alt="Aerial View of Bratuš"></div>
                         </div>
-
-                        <!-- Living Room - index 2 -->
                         <div class="carousel-item">
-                            <img src="/images/living-room-sofa.jpg" alt="Living Room with Nautical Sofa">
+                            <div class="pinch-zoom-container"><img src="/images/living-room-sofa.jpg" alt="Living Room with Nautical Sofa"></div>
                         </div>
-
-                        <!-- Stone Mill - index 3 -->
                         <div class="carousel-item">
-                            <img src="/images/stone-mill.jpg" alt="Traditional Stone Mill">
+                            <div class="pinch-zoom-container"><img src="/images/stone-mill.jpg" alt="Traditional Stone Mill"></div>
                         </div>
-
-                        <!-- Interior Detail - index 4 -->
                         <div class="carousel-item">
-                            <img src="/images/interior-detail.jpg" alt="Interior Detail with Painting">
+                            <div class="pinch-zoom-container"><img src="/images/interior-detail.jpg" alt="Interior Detail with Painting"></div>
                         </div>
-
-                        <!-- Window View - index 5 -->
                         <div class="carousel-item">
-                            <img src="/images/window-view.jpg" alt="Window View to Mountain">
+                            <div class="pinch-zoom-container"><img src="/images/window-view.jpg" alt="Window View to Mountain"></div>
                         </div>
-
-                        <!-- Olive Tree View - index 6 -->
                         <div class="carousel-item">
-                            <img src="/images/olive-tree-view.jpg" alt="Olive Tree with Village View">
+                            <div class="pinch-zoom-container"><img src="/images/olive-tree-view.jpg" alt="Olive Tree with Village View"></div>
                         </div>
-
-                        <!-- Biokovo Sunset - index 7 -->
                         <div class="carousel-item">
-                            <img src="/images/biokovo-sunset.jpg" alt="Biokovo Mountain at Sunset">
+                            <div class="pinch-zoom-container"><img src="/images/biokovo-sunset.jpg" alt="Biokovo Mountain at Sunset"></div>
                         </div>
-
-                        <!-- Modern Bathroom - index 8 -->
                         <div class="carousel-item">
-                            <img src="/images/modern-bathroom.jpg" alt="Modern Bathroom">
+                            <div class="pinch-zoom-container"><img src="/images/modern-bathroom.jpg" alt="Modern Bathroom"></div>
                         </div>
-
-                        <!-- Aerial Beach - index 9 -->
                         <div class="carousel-item">
-                            <img src="/images/aerial-bratus-beach.jpeg" alt="Aerial View of Beach">
+                            <div class="pinch-zoom-container"><img src="/images/aerial-bratus-beach.jpeg" alt="Aerial View of Beach"></div>
                         </div>
-
-                        <!-- Biokovo Window View - index 10 -->
                         <div class="carousel-item">
-                            <img src="/images/biokovo-window-view.jpg" alt="Biokovo View Through Window">
+                            <div class="pinch-zoom-container"><img src="/images/biokovo-window-view.jpg" alt="Biokovo View Through Window"></div>
                         </div>
-
-                        <!-- Bedroom - index 11 -->
                         <div class="carousel-item">
-                            <img src="/images/bedroom.jpg" alt="Bedroom with Stone Wall">
+                            <div class="pinch-zoom-container"><img src="/images/bedroom.jpg" alt="Bedroom with Stone Wall"></div>
                         </div>
-
-                        <!-- Aerial View House - index 12 -->
                         <div class="carousel-item">
-                            <img src="/images/aerial-view-house.jpg" alt="Aerial View of House">
+                            <div class="pinch-zoom-container"><img src="/images/aerial-view-house.jpg" alt="Aerial View of House"></div>
                         </div>
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
@@ -207,7 +309,6 @@
         </div>
     </div>
 </div>
-
 <!-- ======== AMENITIES SECTION ======== -->
 <section class="section" id="amenities">
     <div class="container">
@@ -482,13 +583,15 @@
                                 <p>+385 (0)xx xxx xxxx</p>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="d-flex flex-column align-items-center slide-in-right">
-                                <div class="feature-icon">
-                                    <i class="fas fa-envelope"></i>
+                        <div class="row g-4 justify-content-center">
+                            <div class="col-12">
+                                <div class="d-flex flex-column align-items-center slide-in-right">
+                                    <div class="feature-icon">
+                                        <i class="fas fa-envelope"></i>
+                                    </div>
+                                    <h3 class="h5">Email</h3>
+                                    <p>andrijasevic.martin@gmail.com</p>
                                 </div>
-                                <h3 class="h5">Email</h3>
-                                <p>andrijasevic.ante53@gmail.com</p>
                             </div>
                         </div>
                     </div>

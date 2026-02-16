@@ -23,9 +23,7 @@ public class InquiryController {
         this.reservationRepository = reservationRepository;
     }
 
-    /**
-     * Handle guest inquiry submission
-     */
+
     @PostMapping("/inquiry")
     public Map<String, String> handleInquiry(
             @RequestParam("startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startDate,
@@ -74,9 +72,7 @@ public class InquiryController {
         return response;
     }
 
-    /**
-     * Save inquiry to a file
-     */
+
     private void saveInquiryToFile(Inquiry inquiry, boolean overlaps) {
         try {
             // Create directory if it doesn't exist

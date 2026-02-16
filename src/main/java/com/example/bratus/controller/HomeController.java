@@ -9,15 +9,14 @@ public class HomeController {
 
     @GetMapping("/")
     public String home() {
-        return "index"; // Make sure this matches your template name without .html
+        return "index";
     }
 
     @GetMapping("/about")
     public String about() {
-        return "about"; // Make sure you have an about.html template
+        return "about";
     }
 
-    // Add a test endpoint to diagnose issues
     @GetMapping("/test")
     @ResponseBody
     public String test() {

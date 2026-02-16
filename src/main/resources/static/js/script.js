@@ -35,6 +35,49 @@ document.addEventListener('DOMContentLoaded', function() {
     handleVideoVisibility(); // Initial check
 });
 
+document.addEventListener('DOMContentLoaded', function() {
+    const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
+    const navbarCollapse = document.querySelector('.navbar-collapse');
+
+    navLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            if (navbarCollapse.classList.contains('show')) {
+                bootstrap.Collapse.getInstance(navbarCollapse)?.hide();
+            }
+        });
+    });
+});
+
+// Pinch-to-zoom for gallery modal
+document.addEventListener('DOMContentLoaded', function() {
+    const carouselModal = document.getElementById('carouselModal');
+    if (!carouselModal) return;
+
+    let pinchZoomInstances = [];
+
+    carouselModal.addEventListener('shown.bs.modal', function() {
+        document.querySelectorAll('.pinch-zoom-container').forEach(container => {
+            if (!container.dataset.pinchZoomInit) {
+                const pz = new PinchZoom(container, {
+                    draggableUnzoomed: false,
+                    minZoom: 1,
+                    maxZoom: 4,
+                    tapZoomFactor: 2
+                });
+                pinchZoomInstances.push(pz);
+                container.dataset.pinchZoomInit = 'true';
+            }
+        });
+    });
+
+    const carousel = document.getElementById('carouselExample');
+    if (carousel) {
+        carousel.addEventListener('slide.bs.carousel', function() {
+            pinchZoomInstances.forEach(pz => pz.zoomOutAnimation());
+        });
+    }
+});
+
 // Gallery carousel function
 // Gallery carousel function - improved version
 function openCarousel(index) {
@@ -212,19 +255,23 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function getDisabledRanges() {
-        // Add one day to each end date to ensure proper boundary handling
-        return reservedDates.map(r => {
+        console.log('Building disabled ranges from:', reservedDates); // Debug log
+
+        const disabledRanges = reservedDates.map(r => {
             const fromDate = new Date(r.from);
             const toDate = new Date(r.to);
 
-            // Add a day to the toDate to ensure exclusive end handling
-            toDate.setDate(toDate.getDate() + 1);
 
-            return {
+            const range = {
                 from: fromDate.toISOString().split('T')[0],
                 to: toDate.toISOString().split('T')[0]
             };
+
+            console.log('Disabled range:', range); // Debug log
+            return range;
         });
+
+        return disabledRanges;
     }
 
     function updateAvailability() {
@@ -417,4 +464,167 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+});
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    let reservedDates = [];
+
+    // Fetch reserved dates from backend with enhanced debugging
+    fetch('/calendar/dates')
+        .then(response => response.json())
+        .then(dates => {
+            console.log('Raw data received from /calendar/dates:', dates);
+
+            // Log each reservation in detail
+            dates.forEach((reservation, index) => {
+                console.log(`Reservation ${index + 1}:`, {
+                    from: reservation.from,
+                    to: reservation.to,
+                    fromDate: new Date(reservation.from),
+                    toDate: new Date(reservation.to)
+                });
+            });
+
+            reservedDates = dates;
+            initializeDatePickers();
+        })
+        .catch(error => {
+            console.error('Error fetching reservation dates:', error);
+            reservedDates = [];
+            initializeDatePickers();
+        });
+
+    function initializeDatePickers() {
+        const disabledRanges = getDisabledRanges();
+        console.log('Final disabled ranges for Flatpickr:', disabledRanges);
+
+        const config = {
+            minDate: "today",
+            disable: disabledRanges,
+            dateFormat: "Y-m-d",
+            locale: {
+                firstDayOfWeek: 1,
+                weekdays: {
+                    shorthand: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+                    longhand: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+                },
+                months: {
+                    shorthand: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                    longhand: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+                }
+            },
+            // Add this to see what Flatpickr is actually doing
+            onReady: function(selectedDates, dateStr, instance) {
+                console.log('Flatpickr initialized with disabled dates:', instance.config.disable);
+            }
+        };
+
+        const checkInPicker = flatpickr("#check-in", {
+            ...config,
+            onChange: function(selectedDates) {
+                if (selectedDates[0]) {
+                    const startDateField = document.getElementById('startDate');
+                    if (startDateField) {
+                        startDateField.value = selectedDates[0].toISOString().split('T')[0];
+                    }
+
+                    const checkOutElement = document.getElementById('check-out');
+                    if (checkOutElement && checkOutElement._flatpickr) {
+                        checkOutElement._flatpickr.set('minDate', selectedDates[0]);
+                    }
+                    updateAvailability();
+                }
+            }
+        });
+
+        const checkOutPicker = flatpickr("#check-out", {
+            ...config,
+            onChange: function(selectedDates) {
+                if (selectedDates[0]) {
+                    const endDateField = document.getElementById('endDate');
+                    if (endDateField) {
+                        endDateField.value = selectedDates[0].toISOString().split('T')[0];
+                    }
+
+                    const checkInElement = document.getElementById('check-in');
+                    if (checkInElement && checkInElement._flatpickr) {
+                        checkInElement._flatpickr.set('maxDate', selectedDates[0]);
+                    }
+                    updateAvailability();
+                }
+            }
+        });
+    }
+
+    function getDisabledRanges() {
+        console.log('Building disabled ranges from:', reservedDates);
+
+        const disabledRanges = reservedDates.map((r, index) => {
+            console.log(`\nProcessing reservation ${index + 1}:`);
+            console.log('Original from:', r.from, 'to:', r.to);
+
+            const fromDate = new Date(r.from);
+            const toDate = new Date(r.to);
+
+            console.log('Parsed fromDate:', fromDate);
+            console.log('Parsed toDate:', toDate);
+            console.log('fromDate ISO:', fromDate.toISOString());
+            console.log('toDate ISO:', toDate.toISOString());
+
+            const range = {
+                from: fromDate.toISOString().split('T')[0],
+                to: toDate.toISOString().split('T')[0]
+            };
+
+            console.log('Final range for Flatpickr:', range);
+
+            // Test if Sept 25, 2025 should be in this range
+            const sept25 = new Date('2025-09-25');
+            const isInRange = sept25 >= fromDate && sept25 <= toDate;
+            console.log(`Sept 25, 2025 in this range? ${isInRange}`);
+
+            return range;
+        });
+
+        console.log('All disabled ranges:', disabledRanges);
+        return disabledRanges;
+    }
+
+    function updateAvailability() {
+        const checkIn = document.getElementById('check-in')?.value;
+        const checkOut = document.getElementById('check-out')?.value;
+        const availabilityMessage = document.getElementById('availability-message');
+        const startDateField = document.getElementById('startDate');
+        const endDateField = document.getElementById('endDate');
+
+        if (checkIn && checkOut && startDateField && endDateField) {
+            startDateField.value = checkIn;
+            endDateField.value = checkOut;
+
+            const checkInDate = new Date(checkIn);
+            const checkOutDate = new Date(checkOut);
+
+            const isConflict = reservedDates.some(r => {
+                const reservedStart = new Date(r.from);
+                const reservedEnd = new Date(r.to);
+                return (checkInDate < reservedEnd && checkOutDate > reservedStart);
+            });
+
+            if (availabilityMessage) {
+                if (isConflict) {
+                    availabilityMessage.innerHTML = '<div class="text-danger"><i class="fas fa-times-circle"></i> These dates are not available. Please select different dates.</div>';
+                    availabilityMessage.classList.add('bg-light');
+                } else {
+                    availabilityMessage.innerHTML = '<div class="text-success"><i class="fas fa-check-circle"></i> These dates appear to be available! Send an inquiry to confirm.</div>';
+                    availabilityMessage.classList.add('bg-light');
+                }
+            }
+        } else if (availabilityMessage) {
+            availabilityMessage.innerHTML = '<div class="text-center"><i class="fas fa-info-circle"></i> Select dates to check availability</div>';
+            availabilityMessage.classList.remove('bg-light');
+        }
+    }
+
+    // Keep your existing form submission code here...
 });

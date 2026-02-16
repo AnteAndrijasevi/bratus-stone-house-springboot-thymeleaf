@@ -19,7 +19,7 @@ public class WebSecurityConfig {
                 .headers(headers -> headers
                         .frameOptions(frameOptions -> frameOptions.sameOrigin())
                 )
-                .csrf(csrf -> csrf.disable());  // Use lambda instead of AbstractHttpConfigurer
+                .csrf(csrf -> csrf.disable());
 
         return http.build();
     }

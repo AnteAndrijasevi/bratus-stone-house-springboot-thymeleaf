@@ -10,11 +10,7 @@ import java.util.Properties;
 @Configuration
 public class MailConfig {
 
-    /**
-     * Creates a dummy JavaMailSender bean to satisfy dependency injection.
-     * Note: This is a placeholder implementation that won't actually send emails.
-     * We're using FormSubmit.co for the contact form instead.
-     */
+
     @Bean
     public JavaMailSender javaMailSender() {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();

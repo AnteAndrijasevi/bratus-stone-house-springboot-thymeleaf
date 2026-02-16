@@ -47,7 +47,7 @@ public class CalendarController {
                 .stream()
                 .map(reservation -> Map.of(
                         "from", reservation.getStartDate().toString(),
-                        "to", reservation.getEndDate().toString()
+                        "to", reservation.getEndDate().minusDays(1).toString()
                 ))
                 .collect(Collectors.toList());
     }
@@ -61,7 +61,6 @@ public class CalendarController {
     ) {
         Map<String, String> response = new HashMap<>();
 
-        // Use the same overlap logic here
         boolean overlaps = reservationRepository.findAll().stream().anyMatch(r ->
                 startDate.isBefore(r.getEndDate()) &&
                         endDate.isAfter(r.getStartDate())
@@ -88,10 +87,8 @@ public class CalendarController {
     private boolean isDateRangeAvailable(LocalDate startDate, LocalDate endDate) {
         List<Reservation> existingReservations = reservationRepository.findAll();
 
-        // A date range is available if it doesn't overlap with any existing reservation
         return existingReservations.stream().noneMatch(existing -> {
-            // Date ranges overlap if one range's start is before the other's end
-            // AND the first range's end is after the other's start
+
             return startDate.isBefore(existing.getEndDate()) &&
                     endDate.isAfter(existing.getStartDate());
         });

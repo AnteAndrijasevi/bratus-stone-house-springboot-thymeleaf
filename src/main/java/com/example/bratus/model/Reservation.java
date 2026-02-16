@@ -14,7 +14,6 @@ public class Reservation {
     private LocalDate startDate;
     private LocalDate endDate;
 
-    // npr. ime gosta ako želiš čuvati i ručne rezervacije
     private String guestName;
 
     public Reservation() {
@@ -26,7 +25,6 @@ public class Reservation {
         this.guestName = guestName;
     }
 
-    // getteri/setteri
 
     public Long getId() {
         return id;
